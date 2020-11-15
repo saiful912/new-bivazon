@@ -1,0 +1,10 @@
+.cprofile-sidebar {
+    background: #eee;
+    padding: 30px;
+    height: 100vh;
+}
+
+.cprofile-sidebar ul li a {
+    padding: 8px 0;
+    display: inline-block;
+}
