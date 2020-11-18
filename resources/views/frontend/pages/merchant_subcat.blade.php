@@ -280,8 +280,8 @@
             </style>
             <div class="product-list tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="arrival">
+                    @foreach($users->product as $product)
                     <div class="col-md-3 col-sm-4">
-                        @foreach($users->product as $product)
                             <div class="single-product mb-40">
                                 <div class="product-img-content mb-20">
                                     <div class="product-img">
@@ -474,8 +474,9 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>

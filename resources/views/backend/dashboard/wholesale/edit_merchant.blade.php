@@ -115,6 +115,14 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update Merchant</button>
                             </form>
+                            <form class="mt-4" action="{{route('update.merchant_status',$user->id)}}" method="post">
+                                @csrf
+                                @if($user->status)
+                                    <input type="submit" value="Block" class="btn btn-warning">
+                                @else
+                                    <input type="submit" value="Confirm" class="btn btn-success">
+                                @endif
+                            </form>
                         </div>
                     </div>
                 </div>

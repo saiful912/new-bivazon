@@ -95,6 +95,7 @@
             <div class="row">
                 @foreach($category->merchants as $merchant)
                     @if($merchant->shop_type=='wholesale')
+                        {{--@if(\App\Models\User::where('status',1)->get())--}}
                         <div class="col-md-6 col-lg-4">
                             <div class="card border-0 transform-on-hover">
                                 <div class="card-body">
@@ -114,6 +115,11 @@ padding-bottom: 5px;display: block">
 
                             </div>
                         </div>
+                            {{--@else--}}
+                            {{--<div class="alert alert-danger">--}}
+                                {{--There are nothing product in this Category--}}
+                            {{--</div>--}}
+                            {{--@endif--}}
                     @endif
                 @endforeach
             </div>

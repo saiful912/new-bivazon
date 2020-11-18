@@ -102,8 +102,14 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <a href="#" class="btn btn-success">Confirmed</a>
-                                                                        <a href="#" class="btn btn-dark">Block</a>
+                                                                        <form class="d-inline-block" action="{{route('update.merchant_status',$user->id)}}" method="post">
+                                                                            @csrf
+                                                                            @if($user->status)
+                                                                                <input type="submit" value="Block" class="btn btn-warning">
+                                                                            @else
+                                                                                <input type="submit" value="Confirm" class="btn btn-success">
+                                                                            @endif
+                                                                        </form>
                                                                         <a href="#" class="btn btn-danger">Delete</a>
                                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                                     </div>
@@ -111,9 +117,11 @@
 
                                                             </div>
                                                         </div>
-                                                        <button class="btn btn-success">
-                                                            Active
-                                                        </button>
+                                                        @if($user->status)
+                                                            <button type="button" class="btn btn-success">Activated</button>
+                                                        @else
+                                                            <button type="button" class="btn btn-dark">Pending</button>
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         <a href="{{route('wholesale.edit_merchant',$user->id)}}" class="btn btn-primary md-trigger">Edit</a>

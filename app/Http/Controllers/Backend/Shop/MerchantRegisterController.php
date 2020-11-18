@@ -52,15 +52,19 @@ class MerchantRegisterController extends Controller
                 'type' => UserType::MERCHANT(),
             ]);
             DB::commit();
-
-            return redirect()->route('home');
+//            session()->flash('success','You Have Successfully Registration. The admin will give you access very soon');
+            return redirect(route('shop.register.message'));
         } catch (Throwable $exception) {
             DB::rollBack();
-
-            return redirect()->back();
+            session()->flash('errors','Something was wrong !! Please Try Again..');
+            return back();
         }
     }
 
+    public function successMessage()
+    {
+        return view('frontend.pages.successMessage');
+    }
     public function showLoginForm()
     {
         return \view('backend.shop.login');
@@ -83,4 +87,6 @@ class MerchantRegisterController extends Controller
         notify()->error('Invalid credentials');
         return redirect()->back()->withInput();
     }
+
+
 }

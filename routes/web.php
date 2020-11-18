@@ -52,6 +52,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'app'], function () {
             Route::get('/all-merchant', 'WholesController@allMerchant')->name('wholesale.all_merchant');
             Route::get('/edit-merchant/{id}', 'WholesController@editMerchant')->name('wholesale.edit_merchant');
             Route::post('/edit-merchant/{id}', 'WholesController@merchantUpdate');
+            Route::post('/update-merchant-status/{id}', 'WholesController@merchantStatusUpdate')->name('update.merchant_status');
             Route::get('/payment-history', 'WholesController@paymentHistory')->name('wholesale.payment_history');
             Route::post('/add-payment/', 'WholesController@addPayment')->name('wholesale.add_payment');
             Route::post('/edit-payment/{id}', 'WholesController@editPayment')->name('wholesale.edit_payment');
@@ -141,6 +142,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'app'], function () {
 
 //merchant routes
 Route::get('/shop/register', [MerchantRegisterController::class, 'showRegisterForm',])->name('shop.register');
+Route::get('/shop/register/message', [MerchantRegisterController::class, 'successMessage',])->name('shop.register.message');
 Route::post('shop/register', [MerchantRegisterController::class, 'store'])->name('shop.create');
 Route::group(['middleware' => 'guest'], function () {
     Route::get('shop/login', [MerchantRegisterController::class, 'showLoginForm'])->name('shop.login');

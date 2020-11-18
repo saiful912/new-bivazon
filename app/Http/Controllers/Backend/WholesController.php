@@ -64,7 +64,19 @@ class WholesController extends Controller
         $user=User::find($id);
         return view('backend.dashboard.wholesale.edit_merchant',compact('user','categories'));
     }
-
+//    update merchant status
+    public function merchantStatusUpdate($id)
+    {
+        $user = User::find($id);
+        if ($user->status) {
+            $user->status = 0;
+        } else {
+            $user->status = 1;
+        }
+        $user->save();
+        notify()->success('User Successfully Activate!!');
+        return back();
+    }
     public function merchantUpdate(Request $request,$id)
     {
 
