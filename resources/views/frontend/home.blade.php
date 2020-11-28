@@ -182,12 +182,12 @@
     </section>
 
     <section class="gallery-block cards-gallery">
-        <h2 style="text-align: center;margin-bottom: 20px">Seller Shop</h2>
+        <h2 style="text-align: center;margin-bottom: 20px">Whole Seller Shop</h2>
         <div class="#">
             <div class="row">
                 @foreach($users as $user)
-                    @if($user->type == 'merchant')
-                        @if($user->merchant_id > 0)
+                    @if($user->merchant->shop_type == 'wholesale')
+                        {{--@if($user->merchant_id > 0)--}}
                     <div class="col-md-6 col-lg-3 col-xs-12">
                         <div class="card border-0 transform-on-hover">
                             <div class="card-body">
@@ -204,7 +204,35 @@
                         </div>
                     </div>
                         @endif
+                    {{--@endif--}}
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <section class="gallery-block cards-gallery">
+        <h2 style="text-align: center;margin-bottom: 20px">Retail Seller Shop</h2>
+        <div class="#">
+            <div class="row">
+                @foreach($users as $user)
+                    @if($user->merchant->shop_type == 'retail')
+                        {{--@if($user->merchant_id > 0)--}}
+                        <div class="col-md-6 col-lg-3 col-xs-12">
+                            <div class="card border-0 transform-on-hover">
+                                <div class="card-body">
+
+                                    <h6><a href="{{route('merchant.subcategory',$user->id)}}" style="padding-top: 5px;padding-bottom: 5px;display: block">
+                                            {{$user->merchant->shop_name}}
+                                        </a></h6>
+
+                                </div>
+                                <a class="lightbox" href="{{route('merchant.subcategory',$user->id)}}">
+                                    <img src="{{upload_url('/shop/banner_image/'.$user->merchant->shop_banner)}}" alt="Card Image" class="card-img-top">
+                                </a>
+
+                            </div>
+                        </div>
                     @endif
+                    {{--@endif--}}
                 @endforeach
             </div>
         </div>

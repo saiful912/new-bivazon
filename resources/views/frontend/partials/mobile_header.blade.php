@@ -69,7 +69,7 @@
                                               <i class="fa fa-truck"></i> Track Order
                                             </a></li>
                                         <li><a href="#" class="show">
-                                                <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart ( 0 )
+                                                <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart ({{$carts->count('ip')}})
                                             </a></li>
                                         {{--<li class="dropdown profile_details_drop">--}}
                                             {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}
@@ -247,26 +247,43 @@
 
                                             <div class="cart-product">
                                                 <h2><img src="{{asset('frontend/images/mybag.png')}}" alt=""> My Bag <span
-                                                            class="quicktech_bag_items">(0 items)</span>
+                                                        class="quicktech_bag_items">({{$carts->count('ip')}} items)</span>
                                                     <span class="close-btn hide">X</span>
 
                                                 </h2>
                                                 <div class="pro-subtotal-area">
-                                                    <ul class="quicktech_subtotal">
-                                                        <li><span class="subtitle">subtitle:</span><span class="sub_total">৳ 0 </span>
-                                                        </li>
+                                                    <div class="row">
 
-                                                    </ul>
-                                                    <h4>Your total shopping<span class="total">৳ 0 </span></h4>
+                                                        <ul class="quicktech_subtotal">
+                                                            @foreach($carts as $key=>$cart)
+                                                                <li style="margin-left: 5px">
+                                                                    <a href="#">
+                                                            <span class="subtitle">
+                                                            <img src="{{upload_url('products/'.collect($cart->product->images)->first())}}" alt="cartProductImage" style="width: 60px;display: inline-block">
+                                                                 <span class="sub_total">{{$cart->sub_total}}</span>
 
+                                                        </span>
+                                                                        <br>
+                                                                        {{$cart->product->name}}
+                                                                        <span class="text-danger" style="float: right">Delete</span>
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
+
+                                                        </ul>
+                                                    </div>
+
+                                                    <h4>Your total shopping<span class="total">৳ {{$carts->sum('sub_total')}} </span>
+                                                    </h4>
                                                 </div>
-                                                <div class="cart-product-item-area" style="background: #fff">
 
+                                                {{--<div class="cart-product-item-area">--}}
+                                                {{--</div>--}}
 
-                                                </div>
                                                 <div class="proCheckout">
                                                     <ul>
-                                                        <li><a href="{{route('checkouts')}}">Proceed to Checkout <span>৳ 0 </span></a></li>
+                                                        <li><a href="{{route('checkouts')}}">Proceed to Checkout <span>৳ {{$carts->sum('sub_total')}} </span></a>
+                                                        </li>
 
                                                     </ul>
                                                 </div>

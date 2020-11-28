@@ -70,6 +70,10 @@ class MerchantRegisterController extends Controller
         return \view('backend.shop.login');
     }
 
+    public function LoginMessage()
+    {
+        return view('frontend.pages.successMessage');
+    }
     public function shopLogin(Request $request)
     {
         $this->validate($request, [
@@ -82,7 +86,8 @@ class MerchantRegisterController extends Controller
         ];
 
         if (auth()->attempt($credentials)) {
-            return redirect()->route('merchant.dashboard');
+                return redirect()->route('merchant.dashboard');
+
         }
         notify()->error('Invalid credentials');
         return redirect()->back()->withInput();

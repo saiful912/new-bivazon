@@ -3,8 +3,14 @@
 use App\Http\Controllers\Backend\Shop\MerchantRegisterController;
 use Illuminate\Support\Facades\Route;
 
+<<<<<<< HEAD
+=======
+// search route
+//Route::get('/search', 'frontend\HomeController@query')->name('search');
+>>>>>>> 71ca0a75b6c30c5e7ab753ec52af6229fc8abb16
 Route::group(['namespace' => 'frontend'], function () {
     Route::get('/', 'HomeController@home')->name('home');
+    Route::get('/track', 'HomeController@track')->name('track');
     Route::get('/categories-wholesales', 'CategoriesController@wholesaleCategory')->name('categories_wholesale');
     Route::get('/wholesale-shops/{id?}', 'CategoriesController@wholesaleShop')->name('wholesale_shop');
     Route::get('/subcategories-wholesale/{id}/{shop_id}', 'CategoriesController@subcategoriesWholesale')->name('subcategories_wholesale');
@@ -21,6 +27,7 @@ Route::group(['namespace' => 'frontend'], function () {
     Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('addToCart');
     Route::get('/checkouts', 'CheckoutController@checkout')->name('checkouts');
     Route::post('/process-orders', 'OrderController@process')->name('order.process');
+
 });
 
 //admin routes
@@ -55,6 +62,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'app'], function () {
             Route::get('/edit-merchant/{id}', 'WholesController@editMerchant')->name('wholesale.edit_merchant');
             Route::post('/edit-merchant/{id}', 'WholesController@merchantUpdate');
             Route::post('/update-merchant-status/{id}', 'WholesController@merchantStatusUpdate')->name('update.merchant_status');
+            Route::post('/merchant-delete/{id}', 'WholesController@delete')->name('merchant.delete');
             Route::get('/payment-history', 'WholesController@paymentHistory')->name('wholesale.payment_history');
             Route::post('/add-payment/', 'WholesController@addPayment')->name('wholesale.add_payment');
             Route::post('/edit-payment/{id}', 'WholesController@editPayment')->name('wholesale.edit_payment');
@@ -145,6 +153,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'app'], function () {
 //merchant routes
 Route::get('/shop/register', [MerchantRegisterController::class, 'showRegisterForm',])->name('shop.register');
 Route::get('/shop/register/message', [MerchantRegisterController::class, 'successMessage',])->name('shop.register.message');
+Route::get('/shop/login/message', [MerchantRegisterController::class, 'LoginMessage',])->name('shop.login.message');
 Route::post('shop/register', [MerchantRegisterController::class, 'store'])->name('shop.create');
 Route::group(['middleware' => 'guest'], function () {
     Route::get('shop/login', [MerchantRegisterController::class, 'showLoginForm'])->name('shop.login');

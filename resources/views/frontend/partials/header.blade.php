@@ -22,9 +22,9 @@
         </div>
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style="padding: 0;">
             <div class="quicktechl_search">
-                <form action="#" method="">
-                    <input type="text" class="search_data" placeholder="Search for products">
-                    <button type="text"><i class="fa fa-search"></i></button>
+                <form action="#">
+                    <input type="text"  class="search_data" placeholder="Search for products">
+                    <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
             </div>
         </div>
@@ -42,12 +42,19 @@
                     </div>
                     <ul>
                         <li class="dropdown profile_details_drop">
-                            <a href="#" style="background: gray;
-    padding: 10px 10px;
-    margin-top: 5px;
-    border-radius: 5px;">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="background: gray;padding: 10px 10px;margin-top: 5px;border-radius: 5px;">
                                 <i class="fa fa-location-arrow" aria-hidden="true"></i> Track Order
                             </a>
+                            <ul class="dropdown-menu drp-mnu">
+                                <li>
+                                    <form action="{!! route('track') !!}" method="get">
+
+                                        <input type="text" class="form-control" name="track" placeholder="Enter Your Order Number" required="">
+                                        <button type="submit" class="btn btn-success" style="width: 100%">Search</button>
+                                    </form>
+                                    <!--// Login or sign up  -->
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -170,19 +177,33 @@
 
                                 </h2>
                                 <div class="pro-subtotal-area">
-                                    <ul class="quicktech_subtotal">
-                                        @foreach($carts as $key=>$cart)
-                                            <li><span class="subtitle">{{$cart->product->name}}</span><span
-                                                    class="sub_total">{{$cart->sub_total}} </span></li>
-                                        @endforeach
+                                    <div class="row">
 
-                                    </ul>
+                                            <ul class="quicktech_subtotal">
+                                                @foreach($carts as $key=>$cart)
+                                                    <li style="margin-left: 5px">
+                                                        <a href="#">
+                                                            <span class="subtitle">
+                                                            <img src="{{upload_url('products/'.collect($cart->product->images)->first())}}" alt="cartProductImage" style="width: 60px;display: inline-block">
+                                                                 <span class="sub_total">{{$cart->sub_total}}</span>
+
+                                                        </span>
+                                                            <br>
+                                                            {{$cart->product->name}}
+                                                            <span class="text-danger" style="float: right">Delete</span>
+                                                        </a>
+                                                      </li>
+                                                @endforeach
+
+                                            </ul>
+                                    </div>
+
                                     <h4>Your total shopping<span class="total">৳ {{$carts->sum('sub_total')}} </span>
                                     </h4>
                                 </div>
 
-                                <div class="cart-product-item-area">
-                                </div>
+                                {{--<div class="cart-product-item-area">--}}
+                                {{--</div>--}}
 
                                 <div class="proCheckout">
                                     <ul>

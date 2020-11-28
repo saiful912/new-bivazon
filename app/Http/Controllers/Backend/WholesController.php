@@ -126,6 +126,15 @@ class WholesController extends Controller
         }
     }
 
+    public function delete($id)
+    {
+        $user=User::find($id);
+        $user->delete();
+        $user->merchant()->delete();
+        notify()->success('User has been Successfully Delete !!.');
+        return redirect()->back();
+    }
+
     public function paymentHistory()
     {
         $sellers=Merchant::where('shop_type','wholesale')->orderBy('id','desc')->get();
