@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Enums\UserType;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
 class AdminMessage extends Component
@@ -16,9 +17,16 @@ class AdminMessage extends Component
     public function selectUser($id)
     {
         $this->selectedUser = User::withCount('messages')->find($id);
-        $this->messages = \App\Models\Message::where('from_id', auth()->user()->id)
-            ->where('to_id', '=', $this->selectedUser->id)
-            ->with('user')->get();
+        $selectUser = $this->selectedUser;
+        $this->messages = \App\Models\Message::where(static function (Builder $query) use ($selectUser) {
+            $query->where('from_id', '=', auth()->user()->id);
+            $query->where('to_id', '=', $selectUser->id);
+
+        })->orWhere(function (Builder $query) use ($selectUser) {
+            $query->where('from_id', '=', $selectUser->id);
+            $query->where('to_id', '=', auth()->user()->id);
+        })->with('user')->get();
+
 
         $this->fromMessages = \App\Models\Message::where('to_id', '=', auth()->user()->id)
             ->where('from_id', '=', $this->selectedUser->id)

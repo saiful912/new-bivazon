@@ -23,20 +23,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2464a83-0d4e-4b10-a604-e0db69d3773e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/blade.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/laravel-idea.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/bivazon3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bivazon3.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_20_005708_create_messages_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_20_005708_create_messages_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/backend/Layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/Layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/backend/partials/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/backend/partials/sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/merchant/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/merchant/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/merchant/partials/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/merchant/partials/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Livewire/AdminMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Livewire/AdminMessage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Livewire/Message.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Livewire/Message.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/admin-message.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/admin-message.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/message.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/message.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +175,6 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -241,7 +231,8 @@
       <workItem from="1605717325013" duration="5048000" />
       <workItem from="1606406715539" duration="16328000" />
       <workItem from="1606485464195" duration="1215000" />
-      <workItem from="1606574467997" duration="7181000" />
+      <workItem from="1606574467997" duration="10134000" />
+      <workItem from="1606585714354" duration="1879000" />
     </task>
     <servers />
   </component>
@@ -261,10 +252,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606574678964">
+    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606585254201">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.768@0.0.1366.768" timestamp="1606574678964" />
+    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.768@0.0.1366.768" timestamp="1606585254201" />
     <state x="446" y="294" key="ComposerInitDialogKey" timestamp="1606461447194">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -273,10 +264,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="517" y="303" key="NewPhpFileDialog/0.0.1366.768@0.0.1366.768" timestamp="1606485862492" />
-    <state width="498" height="446" key="SwitcherDM" timestamp="1606581715405">
+    <state width="498" height="446" key="SwitcherDM" timestamp="1606588005043">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="498" height="446" key="SwitcherDM/0.0.1366.768@0.0.1366.768" timestamp="1606581715405" />
+    <state width="498" height="446" key="SwitcherDM/0.0.1366.768@0.0.1366.768" timestamp="1606588005043" />
     <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1606485885204">
       <screen x="0" y="0" width="1366" height="768" />
     </state>

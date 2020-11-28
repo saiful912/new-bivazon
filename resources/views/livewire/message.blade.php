@@ -9,13 +9,13 @@
                                 <div class="d-flex bd-highlight">
                                     <div class="img_cont">
                                         <img
-                                            src="{{upload_url('shop/profile/'.$admin->image)}}"
+                                            src="{{upload_url('shop/profile/'.$selectUser->image)}}"
                                             class="rounded-circle user_img">
                                         <span class="online_icon"></span>
                                     </div>
                                     <div class="user_info">
-                                        <span>{{$admin->full_name}}</span>
-                                        <p>{{$admin->full_name}} is online</p>
+                                        <span>{{$selectUser->full_name}}</span>
+                                        <p>{{$selectUser->full_name}} is online</p>
                                     </div>
                                 </div>
                             </li>
@@ -29,42 +29,31 @@
                         <div class="d-flex bd-highlight">
                             <div class="img_cont">
                                 <img
-                                    src="{{upload_url('shop/profile/'.$admin->image)}}"
+                                    src="{{upload_url('shop/profile/'.$selectUser->image)}}"
                                     class="rounded-circle user_img">
                                 <span class="online_icon"></span>
                             </div>
                             <div class="user_info">
-                                <span>{{$admin->full_name}}</span>
+                                <span>{{$selectUser->full_name}}</span>
                                 <p>1767 Messages</p>
                             </div>
                         </div>
                     </div>
                     <div class="card-body msg_card_body">
-                        @foreach($fromAdminMessages as $fromAdminMessage)
-                            <div class="d-flex justify-content-start mb-4">
-                                <div class="img_cont_msg">
-                                    <img
-                                        src="{{upload_url('shop/profile/'.$admin->image)}}"
-                                        class="rounded-circle user_img_msg">
-                                </div>
-                                <div class="msg_cotainer ">
-                                    {{$fromAdminMessage->text}}
-                                    <span class="msg_time">{{$fromAdminMessage->created_at->diffForHumans()}}</span>
-                                </div>
-                            </div>
-                        @endforeach
-                        @foreach($ownMessages as $ownMessage)
-                            <div class="d-flex justify-content-end mb-4">
+                        @foreach($messages as $message)
+                            <div class="d-flex {{$selectedUser->id === $message->from_id ? 'justify-content-start':'justify-content-end'}}  mb-4">
                                 <div class="msg_cotainer_send">
-                                    {{$ownMessage->text}}
-                                    <span class="msg_time_send">{{$ownMessage->created_at->diffForHumans()}}</span>
+                                    {{$message->text}}
+                                    <span class="msg_time_send">{{$message->created_at->diffForHumans()}}</span>
                                 </div>
                                 <div class="img_cont_msg">
-                                    <img src="{{upload_url('shop/profile/'.auth()->user()->image)}}" alt=""
+                                    <img src="{{upload_url('shop/profile/'.$message->user->image)}}" alt=""
                                          class="rounded-circle user_img_msg">
                                 </div>
                             </div>
                         @endforeach
+
+
                     </div>
                     <form class="card-footer" wire:submit.prevent="sendMessage">
                         <div class="input-group">

@@ -4,17 +4,13 @@ namespace App\Http\Livewire;
 
 use App\Enums\UserType;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
 class Message extends Component
 {
     public $message;
-
-    public function mount()
-    {
-
-    }
-
+    public $selectedUser;
 
     public function sendMessage()
     {
@@ -35,14 +31,16 @@ class Message extends Component
 
     public function render()
     {
-        $admin = User::where('type', '=', UserType::ADMIN())->first();
+        $this->selectedUser = User::where('type', '=', UserType::ADMIN())->first();
+        $selectUser = $this->selectedUser;
+        $messages = \App\Models\Message::where(static function (Builder $query) use ($selectUser) {
+            $query->where('from_id', '=', auth()->user()->id);
+            $query->where('to_id', '=', $selectUser->id);
 
-        $ownMessages = \App\Models\Message::where('from_id', auth()->user()->id)
-            ->where('to_id', '=', $admin->id)
-            ->with('user')->get();
-        $fromAdminMessages = \App\Models\Message::where('to_id', auth()->user()->id)
-            ->where('from_id', '=', $admin->id)
-            ->with('user')->get();
-        return view('livewire.message', compact('admin', 'ownMessages', 'fromAdminMessages'));
+        })->orWhere(function (Builder $query) use ($selectUser) {
+            $query->where('from_id', '=', $selectUser->id);
+            $query->where('to_id', '=', auth()->user()->id);
+        })->with('user')->get();
+        return view('livewire.message', compact('selectUser', 'messages'));
     }
 }

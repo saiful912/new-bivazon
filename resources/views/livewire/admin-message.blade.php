@@ -27,7 +27,6 @@
             @if($selectedUser)
                 <div class="col-md-8 col-xl-8 chat">
                     <div class="card">
-
                         <div class="card-header msg_head">
                             <div class="d-flex bd-highlight">
                                 <div class="img_cont">
@@ -43,27 +42,16 @@
                             </div>
                         </div>
                         <div class="card-body msg_card_body">
-                            @foreach($fromMessages as $key=>$fromMessage )
-                                <div class="d-flex justify-content-start mb-4">
-                                    <div class="img_cont_msg">
-                                        <img
-                                            src="{{upload_url('shop/profile/'.$selectedUser->image)}}"
-                                            class="rounded-circle user_img_msg">
-                                    </div>
-                                    <div class="msg_cotainer">
-                                        {{$fromMessage->text}}
-                                        <span class="msg_time">{{$fromMessage->created_at->diffForHumans()}}</span>
-                                    </div>
-                                </div>
-                            @endforeach
                             @foreach($messages as $message)
-                                <div class="d-flex justify-content-end mb-4">
+
+                                <div
+                                    class="d-flex {{$selectedUser->id === $message->from_id ? 'justify-content-start':'justify-content-end'}} mb-4">
                                     <div class="msg_cotainer_send">
                                         {{$message->text}}
                                         <span class="msg_time_send">{{$message->created_at->diffForHumans()}}</span>
                                     </div>
                                     <div class="img_cont_msg">
-                                        <img src="{{upload_url('shop/profile/'.auth()->user()->image)}}" alt=""
+                                        <img src="{{upload_url('shop/profile/'.$message->user->image)}}" alt=""
                                              class="rounded-circle user_img_msg">
                                     </div>
                                 </div>
