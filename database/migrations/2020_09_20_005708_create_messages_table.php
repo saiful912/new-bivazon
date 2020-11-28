@@ -15,10 +15,9 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('send_at');
-            $table->timestamp('seen_at');
+            $table->timestamp('send_at')->nullable();
             $table->longText('text');
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->foreignId('from_id');
             $table->foreignId('to_id');
             $table->timestamps();

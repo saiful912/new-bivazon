@@ -44,5 +44,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Product::class);
     }
+
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'from_id');
+    }
 }
 
