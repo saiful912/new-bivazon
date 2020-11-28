@@ -110,7 +110,30 @@
                                                                         <input type="submit" value="Confirm" class="btn btn-success">
                                                                     @endif
                                                                 </form>
-                                                                <a href="#" class="btn btn-danger">Delete</a>
+                                                                <a href="#deleteModal2{{$user->id}}" data-toggle="modal" class="btn btn-danger">Delete</a>
+
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="deleteModal2{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">Are you sure to delete!</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <form action="{!! route('merchant.delete',$user->id) !!}" method="post">
+                                                                                    {{csrf_field()}}
+                                                                                    <button type="submit" class="btn btn-danger float-left">Permanent Delete</button>
+                                                                                </form>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                             </div>
                                                         </div>
@@ -125,7 +148,30 @@
                                             </td>
                                             <td>
                                                 <a href="{{route('wholesale.edit_merchant',$user->id)}}" class="btn btn-primary md-trigger">Edit</a>
-                                                <a href="#" class="btn btn-danger">Delete</a>
+                                                <a href="#deleteModal{{$user->id}}" data-toggle="modal" class="btn btn-danger">Delete</a>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="deleteModal{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Are you sure to delete!</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="{!! route('merchant.delete',$user->id) !!}" method="post">
+                                                                    {{csrf_field()}}
+                                                                    <button type="submit" class="btn btn-danger float-left">Permanent Delete</button>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                         @endif
