@@ -3,11 +3,9 @@
 use App\Http\Controllers\Backend\Shop\MerchantRegisterController;
 use Illuminate\Support\Facades\Route;
 
-<<<<<<< HEAD
-=======
+
 // search route
 //Route::get('/search', 'frontend\HomeController@query')->name('search');
->>>>>>> 71ca0a75b6c30c5e7ab753ec52af6229fc8abb16
 Route::group(['namespace' => 'frontend'], function () {
     Route::get('/', 'HomeController@home')->name('home');
     Route::get('/track', 'HomeController@track')->name('track');
