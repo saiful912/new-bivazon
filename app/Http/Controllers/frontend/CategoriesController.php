@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Enums\ShopType;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\User;
@@ -18,8 +19,9 @@ class CategoriesController extends Controller
     {
         $category = Category::with(['users' => function ($query) {
             $query->where('status', '=', 1);
-        }, 'users.merchant'])->find($id);
-
+        }, 'users.merchant' => function ($query) {
+            $query->where('shop_type', '=', ShopType::WHOLESALE());
+        }])->find($id);
         if (!is_null($category)) {
             return view('frontend.pages.wholesale_shop_page', compact('category'));
         } else {
@@ -30,10 +32,9 @@ class CategoriesController extends Controller
 
     public function subcategoriesWholesale($id, $shop_id)
     {
-
         $category = Category::with('users')->find($id);
         $categories = Category::orderBy('id', 'asc')->where('category_id', $category->id)->get();
-        $user = User::with('merchant')->where('merchant_id', $shop_id)->first();
+        $user = User::with('merchant')->where('id', $shop_id)->first();
         return view('frontend.pages.wholesale_subcategory', compact('category', 'user', 'categories'));
     }
 

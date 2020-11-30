@@ -192,7 +192,7 @@
         progressText[current - 2].classList.remove("active");
         current -= 1;
     });
-    prevBtnThird.addEventListener("click", function(){
+    prevBtnThird.addEventListener("click", function () {
         slidePage.style.marginLeft = "-25%";
         bullet[current - 2].classList.remove("active");
         progressCheck[current - 2].classList.remove("active");

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Merchant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MerchantPaymentRequest;
 use App\Models\Category;
+use App\Models\MerchantOrder;
 use App\Models\Order;
 use App\Models\PaymentRequest;
 use App\Models\User;
@@ -66,7 +67,7 @@ class DashboardController extends Controller
             }
             $user->merchant()->update([
                 'shop_name' => $request->input('shop_name'),
-                'shop_banner'=>$file_names,
+                'shop_banner' => $file_names,
             ]);
             DB::commit();
             notify()->success(' Merchant update successfully ', 'success');
@@ -96,7 +97,7 @@ class DashboardController extends Controller
 
     public function order()
     {
-        $orders = Order::where('merchant_id', auth()->user()->id)->orderBy('id', 'desc')->paginate(20);
+        $orders = MerchantOrder::with('product')->where('user_id', auth()->user()->id)->get();
         return view('merchant.dashboard.orders', compact('orders'));
     }
 

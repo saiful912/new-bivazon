@@ -6,13 +6,13 @@ use App\Enums\OrderStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Affiliate;
 use App\Models\Merchant;
+use App\Models\MerchantOrder;
 use App\Models\Order;
 use App\Models\User;
 use App\Traits\ImageUploadAble;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use PDF;
-use Throwable;
 
 class DashboardController extends Controller
 {
@@ -31,7 +31,7 @@ class DashboardController extends Controller
         $affilates = Affiliate::count('id');
         $orders = Order::count('id');
         $retailOrders = Order::where('type', 'retail')->orderBy('id', 'desc')->take(10)->get();
-        $wholesaleOrders = Order::where('type', 'wholesale')->orderBy('id', 'desc')->take(10)->get();
+        $wholesaleOrders = Order::orderBy('id', 'desc')->take(10)->get();
         return view('backend.dashboard.index', compact(
             'retailOrders', 'marchants',
             'wholesaleOrders', 'customers', 'affilates', 'orders'
@@ -41,11 +41,24 @@ class DashboardController extends Controller
 
     public function status($id, $status)
     {
-        $order = Order::find($id);
+        $order = Order::with('items')->find($id);
+        if ($order->status == OrderStatus::CONFIRMED()) {
+            notify()->warning('This order already ' . OrderStatus::CONFIRMED . '.');
+            return redirect()->route('dashboard');
+        }
+
 
         if ($status == OrderStatus::CONFIRMED()) {
-
             $order->update(['status' => $status]);
+            foreach ($order->items as $item) {
+                MerchantOrder::create([
+                    'invoice_no' => Str::random(10),
+                    'user_id' => $item->merchant_id,
+                    'total_amount' => $item->line_total,
+                    'product_id' => $item->product_id,
+                    'status' => OrderStatus::CONFIRMED()
+                ]);
+            }
             notify()->success('success', 'Order successfully confirmed');
         } elseif ($status == OrderStatus::COMPLETED()) {
             $order->update(['status' => $status]);
@@ -90,6 +103,7 @@ class DashboardController extends Controller
             'phone' => 'required|regex:/^(?:\+?88)?01[13-9]\d{8}$/',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg',
         ]);
+
         try {
             $user = User::find(auth()->user()->id);
             $data = [

@@ -8,7 +8,8 @@
 
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <a href="#"><img src="{{upload_url('categories/'.$users->merchant->category->banner_image)}}" alt="bannerImage"></a>
+                    <a href="#"><img src="{{upload_url('categories/'.$users->category->banner_image)}}"
+                                     alt="bannerImage"></a>
                 </div>
             </div>
             <!-- The Modal -->
@@ -281,7 +282,7 @@
             <div class="product-list tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="arrival">
                     @foreach($users->product as $product)
-                    <div class="col-md-3 col-sm-4">
+                        <div class="col-md-3 col-sm-4">
                             <div class="single-product mb-40">
                                 <div class="product-img-content mb-20">
                                     <div class="product-img">
@@ -297,14 +298,15 @@
 
                                     </div>
 
-                                    <span class="new-label text-uppercase">-{{$product->price - $product->discount}}</span>
+                                    <span
+                                        class="new-label text-uppercase">-{{$product->price - $product->discount}}</span>
 
                                 </div>
                                 <div class="product-content text-center text-uppercase">
                                     <a style="color: #01a6a9;" href="#" title="Quick view" data-toggle="modal"
                                        data-target="#productModal-{{$product->id}}">View Details</a>
                                     <br>
-                                    <a href="product-details.html" title="Ripcurl Furry Fleece">{{$product->name}}</a>
+                                    <a href="#" title="Ripcurl Furry Fleece">{{$product->name}}</a>
                                     <div class="rating-icon">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -386,7 +388,7 @@
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close"><span
-                                                            aria-hidden="true">&times;</span></button>
+                                                        aria-hidden="true">&times;</span></button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="modal-product">
@@ -397,8 +399,8 @@
                                                                     <a class="venobox" href="#" data-gall="gallery"
                                                                        title="">
                                                                         <img
-                                                                                src="{{upload_url('products/'.collect($product->images)->first())}}"
-                                                                                alt="proImage"></a>
+                                                                            src="{{upload_url('products/'.collect($product->images)->first())}}"
+                                                                            alt="proImage"></a>
                                                                 </div>
 
                                                             </div>
@@ -434,7 +436,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="product-action-shop mb-30">
-                                                            <a href="{{route('addToCart',$product->id)}}" class="buttonn yellow"
+                                                            <a href="{{route('addToCart',$product->id)}}"
+                                                               class="buttonn yellow"
                                                                style="width: 100%;display: block;text-align: center">
                                                                 <div class="title">Add to cart</div>
                                                             </a>
@@ -475,7 +478,7 @@
                                 </div>
                             </div>
 
-                    </div>
+                        </div>
                     @endforeach
                 </div>
             </div>

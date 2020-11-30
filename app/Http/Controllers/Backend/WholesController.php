@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\backend;
 
+use App\Enums\UserType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentRequest;
 use App\Models\Category;
@@ -10,24 +11,25 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Traits\ImageUploadAble;
 use DB;
+use Illuminate\Http\Request;
 
 class WholesController extends Controller
 {
     use ImageUploadAble;
+
     public function orders()
     {
-        $sellers=Merchant::where('shop_type','wholesale')->orderBy('id','desc')->get();
+        $sellers = Merchant::where('shop_type', 'wholesale')->orderBy('id', 'desc')->get();
         $wholesaleOrders = Order::where('type', 'wholesale')->orderBy('id', 'desc')->get();
-        return view('backend.dashboard.wholesale.orders',compact('wholesaleOrders','sellers'));
+        return view('backend.dashboard.wholesale.orders', compact('wholesaleOrders', 'sellers'));
     }
 
     public function category()
     {
         $categories = Category::orderBy('id', 'asc')->get();
-        return view('backend.dashboard.wholesale.categories',compact('categories'));
+        return view('backend.dashboard.wholesale.categories', compact('categories'));
     }
 
     public function categoryEdit()
@@ -37,8 +39,8 @@ class WholesController extends Controller
 
     public function products()
     {
-        $products = Product::with(['user.merchant'])->where('type','wholesale')->paginate(20);
-        return view('backend.dashboard.wholesale.products',compact('products'));
+        $products = Product::with(['user.merchant'])->where('type', 'wholesale')->paginate(20);
+        return view('backend.dashboard.wholesale.products', compact('products'));
     }
 
     public function edit()
@@ -48,22 +50,24 @@ class WholesController extends Controller
 
     public function merchantRequest()
     {
-        $users = User::orderBy('id','desc')->with('merchant')->take(10)->get();
-        return view('backend.dashboard.wholesale.merchant_request',compact('users'));
+        $users = User::where('type', '=', UserType::MERCHANT)->orderBy('id', 'desc')->with('merchant', 'category')->take(10)->get();
+
+        return view('backend.dashboard.wholesale.merchant_request', compact('users'));
     }
 
     public function allMerchant()
     {
-        $users = User::orderBy('id','asc')->with('merchant')->take(10)->get();
-        return view('backend.dashboard.wholesale.all_merchant',compact('users'));
+        $users = User::where('type', '=', UserType::MERCHANT)->orderBy('id', 'asc')->where()->with('merchant', 'category')->take(10)->get();
+        return view('backend.dashboard.wholesale.all_merchant', compact('users'));
     }
 
     public function editMerchant($id)
     {
         $categories = Category::orderBy('name', 'desc')->where('category_id', null)->get();
-        $user=User::find($id);
-        return view('backend.dashboard.wholesale.edit_merchant',compact('user','categories'));
+        $user = User::find($id);
+        return view('backend.dashboard.wholesale.edit_merchant', compact('user', 'categories'));
     }
+
 //    update merchant status
     public function merchantStatusUpdate($id)
     {
@@ -77,7 +81,8 @@ class WholesController extends Controller
         notify()->success('User Successfully Activate!!');
         return back();
     }
-    public function merchantUpdate(Request $request,$id)
+
+    public function merchantUpdate(Request $request, $id)
     {
 
         $this->validate($request, [
@@ -91,7 +96,7 @@ class WholesController extends Controller
         ]);
         DB::beginTransaction();
         try {
-            $user=User::with('merchant')->find($id);
+            $user = User::with('merchant')->find($id);
             $data = [
                 'full_name' => $request->input('full_name'),
                 'phone' => $request->input('phone'),
@@ -104,12 +109,12 @@ class WholesController extends Controller
             }
             $user->update($data);
 
-            $merchant=[
+            $merchant = [
                 'category_id' => $request->input('category_id'),
                 'shop_type' => $request->input('shop_type'),
                 'shop_name' => $request->input('shop_name'),
-                'commission'=>$request->input('commission'),
-                'address'=>$request->input('address'),
+                'commission' => $request->input('commission'),
+                'address' => $request->input('address'),
             ];
             if ($request->hasFile('shop_banner')) {
                 $image = $this->upload($request->file('shop_banner'), 'shop/banner_image');
@@ -128,7 +133,7 @@ class WholesController extends Controller
 
     public function delete($id)
     {
-        $user=User::find($id);
+        $user = User::find($id);
         $user->delete();
         $user->merchant()->delete();
         notify()->success('User has been Successfully Delete !!.');
@@ -137,14 +142,15 @@ class WholesController extends Controller
 
     public function paymentHistory()
     {
-        $sellers=Merchant::where('shop_type','wholesale')->orderBy('id','desc')->get();
-        $payments = Payment::with(['order'=>function($query){
-            $query->where('type','wholesale')->get();}])
-            ->orderBy('id','desc')->paginate(20);
-        return view('backend.dashboard.wholesale.payment_history',compact('payments','sellers'));
+        $sellers = Merchant::where('shop_type', 'wholesale')->orderBy('id', 'desc')->get();
+        $payments = Payment::with(['order' => function ($query) {
+            $query->where('type', 'wholesale')->get();
+        }])
+            ->orderBy('id', 'desc')->paginate(20);
+        return view('backend.dashboard.wholesale.payment_history', compact('payments', 'sellers'));
     }
 
-    public function addPayment(PaymentRequest  $request)
+    public function addPayment(PaymentRequest $request)
     {
         try {
             $payment = new Payment();
@@ -161,7 +167,8 @@ class WholesController extends Controller
             return redirect()->back();
         }
     }
-    public function editPayment(PaymentRequest  $request,$id)
+
+    public function editPayment(PaymentRequest $request, $id)
     {
         try {
             $payment = Payment::find($id);
