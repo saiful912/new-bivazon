@@ -19,7 +19,6 @@ class CreateMerchantsTable extends Migration
             $table->string('shop_name')->nullable();
             $table->enum('shop_type', [ShopType::RETAIL(), ShopType::WHOLESALE()]);
             $table->string('shop_banner')->nullable();
-            $table->foreignId('category_id');
             $table->decimal('current_balance')->default(00);
             $table->string('city')->nullable();
             $table->decimal('commission')->nullable();

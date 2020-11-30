@@ -93,33 +93,30 @@
         <h2 style="text-align: center;margin-bottom: 20px">{{$category->name}} Whole Sale Shop</h2>
         <div class="container-fluid">
             <div class="row">
-                @foreach($category->merchants as $merchant)
-                    @if($merchant->shop_type=='wholesale')
-                        {{--@if(\App\Models\User::where('status',1)->get())--}}
+                @foreach($category->users as $user)
+
+                    @if($user->merchant->shop_type=='wholesale')
                         <div class="col-md-6 col-lg-4">
                             <div class="card border-0 transform-on-hover">
                                 <div class="card-body">
-
                                     <h6>
-                                        <a href="{{route('subcategories_wholesale',['id'=>$category->id,'shop_id'=>$merchant->id])}}" style="padding-top: 5px;
+                                        <a href="{{route('subcategories_wholesale',['id'=>$category->id,'shop_id'=>$user->id])}}"
+                                           style="padding-top: 5px;
 padding-bottom: 5px;display: block">
-                                            {{$merchant->shop_name}}
+                                            {{$user->merchant->shop_name}}
                                         </a>
                                     </h6>
-                                    {{--<p style="margin-bottom: 10px">Propiter: {{$merchant->user->full_name}}</p>--}}
+                                    {{--<p style="margin-bottom: 10px">Propiter: {{$user->user->full_name}}</p>--}}
                                 </div>
-                                <a class="lightbox" href="{{route('subcategories_wholesale',['id'=>$category->id,'shop_id'=>$merchant->id])}}">
-                                    <img src="{{upload_url('/shop/banner_image/'.$merchant->shop_banner)}}" alt="Card Image" class="card-img-top"
+                                <a class="lightbox"
+                                   href="{{route('subcategories_wholesale',['id'=>$category->id,'shop_id'=>$user->id])}}">
+                                    <img src="{{upload_url('/shop/banner_image/'.$user->merchant->shop_banner)}}"
+                                         alt="Card Image" class="card-img-top"
                                          style="width: 100%">
                                 </a>
 
                             </div>
                         </div>
-                            {{--@else--}}
-                            {{--<div class="alert alert-danger">--}}
-                                {{--There are nothing product in this Category--}}
-                            {{--</div>--}}
-                            {{--@endif--}}
                     @endif
                 @endforeach
             </div>

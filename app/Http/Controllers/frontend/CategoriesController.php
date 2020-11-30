@@ -16,7 +16,10 @@ class CategoriesController extends Controller
 
     public function wholesaleShop($id)
     {
-        $category = Category::with('merchants')->find($id);
+        $category = Category::with(['users' => function ($query) {
+            $query->where('status', '=', 1);
+        }, 'users.merchant'])->find($id);
+
         if (!is_null($category)) {
             return view('frontend.pages.wholesale_shop_page', compact('category'));
         } else {
@@ -27,10 +30,10 @@ class CategoriesController extends Controller
 
     public function subcategoriesWholesale($id, $shop_id)
     {
-        $category = Category::with('merchants')->find($id);
+
+        $category = Category::with('users')->find($id);
         $categories = Category::orderBy('id', 'asc')->where('category_id', $category->id)->get();
         $user = User::with('merchant')->where('merchant_id', $shop_id)->first();
-
         return view('frontend.pages.wholesale_subcategory', compact('category', 'user', 'categories'));
     }
 
@@ -51,18 +54,18 @@ class CategoriesController extends Controller
         }
     }
 
-    public function subcategoriesRetail($id,$shop_id)
+    public function subcategoriesRetail($id, $shop_id)
     {
         $category = Category::with('merchants')->find($id);
         $categories = Category::orderBy('id', 'asc')->where('category_id', $category->id)->get();
         $user = User::with('merchant')->where('merchant_id', $shop_id)->first();
-        return view('frontend.pages.retail_subcategory', compact('category','user','categories'));
+        return view('frontend.pages.retail_subcategory', compact('category', 'user', 'categories'));
     }
 
     public function merchantSubCat($id)
     {
-        $users=User::with('product')->find($id);
+        $users = User::with('product')->find($id);
 //        $categories = Category::orderBy('id', 'asc')->get();
-        return view('frontend.pages.merchant_subcat',compact('users'));
+        return view('frontend.pages.merchant_subcat', compact('users'));
     }
 }

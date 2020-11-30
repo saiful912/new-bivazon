@@ -8,8 +8,8 @@ use App\Models\Category;
 use App\Models\Merchant;
 use App\Models\User;
 use App\Traits\ImageUploadAble;
-use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Throwable;
 
@@ -50,13 +50,14 @@ class MerchantRegisterController extends Controller
                 'password' => bcrypt($request->input('password')),
                 'image' => $file_name,
                 'type' => UserType::MERCHANT(),
+                'category_id' => $request->input('category_id'),
             ]);
             DB::commit();
 //            session()->flash('success','You Have Successfully Registration. The admin will give you access very soon');
             return redirect(route('shop.register.message'));
         } catch (Throwable $exception) {
             DB::rollBack();
-            session()->flash('errors','Something was wrong !! Please Try Again..');
+            session()->flash('errors', 'Something was wrong !! Please Try Again..');
             return back();
         }
     }
@@ -65,6 +66,7 @@ class MerchantRegisterController extends Controller
     {
         return view('frontend.pages.successMessage');
     }
+
     public function showLoginForm()
     {
         return \view('backend.shop.login');
@@ -74,6 +76,7 @@ class MerchantRegisterController extends Controller
     {
         return view('frontend.pages.successMessage');
     }
+
     public function shopLogin(Request $request)
     {
         $this->validate($request, [
@@ -86,7 +89,7 @@ class MerchantRegisterController extends Controller
         ];
 
         if (auth()->attempt($credentials)) {
-                return redirect()->route('merchant.dashboard');
+            return redirect()->route('merchant.dashboard');
 
         }
         notify()->error('Invalid credentials');
