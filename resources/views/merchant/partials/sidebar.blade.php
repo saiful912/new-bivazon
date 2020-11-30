@@ -22,7 +22,7 @@
                                 class='fa fa-cogs'></i><span>Settings</span></a></li>
                     <li><a href="{{route('merchant.orders')}}"><i
                                 class='bx bx-money'></i><span>Orders</span></a></li>
-                    <li><a href="#">
+                    <li><a href="{{route('merchant.message')}}">
                             <i class='bx bx-message'></i>
                             <span>Messages</span></a>
                     </li>

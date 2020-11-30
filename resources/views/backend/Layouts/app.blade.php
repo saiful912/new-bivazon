@@ -18,7 +18,8 @@
             margin-top: 60px;
         }
     </style>
-
+    @stack('css')
+    <livewire:styles/>
 </head>
 
 <body>
@@ -74,5 +75,6 @@
         selector: '#mytextarea1'
     });
 </script>
+<livewire:scripts/>
 </body>
 </html>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\Shop\MerchantRegisterController;
 use Illuminate\Support\Facades\Route;
 
+
 // search route
 //Route::get('/search', 'frontend\HomeController@query')->name('search');
 Route::group(['namespace' => 'frontend'], function () {
@@ -29,7 +30,6 @@ Route::group(['namespace' => 'frontend'], function () {
 
 //admin routes
 Route::group(['namespace' => 'Backend', 'prefix' => 'app'], function () {
-
     Route::group(['middleware' => 'guest'], function () {
         Route::get('/', 'Auth\AuthController@index')->name('admin.login');
         Route::post('/', 'Auth\AuthController@login')->name('admin.process');
@@ -41,6 +41,8 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'app'], function () {
         Route::get('/admin/profile', 'DashboardController@profile')->name('admin.profile');
         Route::post('/admin/update', 'DashboardController@updateProfile')->name('admin.update');
         Route::get('/orders/status/{id}/{status}', 'DashboardController@status')->name('orders.status');
+
+        Route::get('/admin/message', 'MessageController@index')->name('admin.message');
 
         //order route
         Route::get('admin/orders', 'DashboardController@orders')->name('orders');
@@ -172,6 +174,8 @@ Route::group(['namespace' => 'Merchant', 'prefix' => 'merchant'], function () {
     Route::get('/products', 'DashboardController@product')->name('merchant.products');
     Route::get('/edit-product', 'DashboardController@edit')->name('merchant.edit.product');
     Route::get('/returns', 'DashboardController@return')->name('merchant.returns');
+    Route::get('/messages', 'MessageController@showMessageForm')->name('merchant.message');
+    Route::post('/messages/send', 'MessageController@send')->name('merchant.send');
 });
 
 //affiliate routes

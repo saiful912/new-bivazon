@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMessagesTable extends Migration
+class CreateMerchantOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('merchant_orders', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('send_at')->nullable();
-            $table->longText('text');
-            $table->string('file')->nullable();
-            $table->foreignId('from_id');
-            $table->foreignId('to_id');
+            $table->string('invoice_no');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('merchant_orders');
     }
 }

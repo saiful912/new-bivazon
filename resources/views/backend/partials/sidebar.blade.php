@@ -20,7 +20,7 @@
                                 class='bx bx-money'></i><span>Orders</span></a></li>
                     <li><a href="{{route('admin.payment.request')}}"><i
                                 class='bx bx-git-pull-request'></i><span>Payment Request</span></a></li>
-                    <li><a href="#"><i
+                    <li><a href="{{route('admin.message')}}"><i
                                 class='bx bx-message'></i><span>Messages</span></a></li>
                     <li class="treeview">
                         <a href="javascript:void(0)"><i class='bx bx-briefcase-alt-2'></i> <span>Whole</span> <i

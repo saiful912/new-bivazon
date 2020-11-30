@@ -11,12 +11,13 @@
     <link rel="stylesheet" href="{{mix('backend/css/app.css')}}">
     <link rel="stylesheet" href="{{asset('backend/css/jquery.dataTables.min.css')}}">
     @notifyCss
+    <livewire:styles/>
     <style>
         div[x-description] {
             margin-top: 60px;
         }
     </style>
-
+    @stack('css')
 </head>
 
 <body>
@@ -62,5 +63,6 @@
         selector: '#mytextarea1'
     });
 </script>
+<livewire:scripts/>
 </body>
 </html>
