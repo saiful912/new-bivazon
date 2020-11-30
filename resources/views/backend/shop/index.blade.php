@@ -25,7 +25,6 @@
     <main class="main-box">
         <div class="container">
             <header>Shop Registration</header>
-            @include('backend.partials._message')
             <div class="progress-bar">
                 <div class="step">
                     <p style="font-size: medium">Shop Type</p>

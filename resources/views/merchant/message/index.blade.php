@@ -1,6 +1,6 @@
 @extends('merchant.layouts.app')
 @push('css')
-    <link rel="stylesheet" href="{{asset('css/message.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/message.css')}}">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.0/css/OverlayScrollbars.css"
           integrity="sha512-vE1vuJehUqVW9CvtimaOOJ+vgfv5o/d5Z7uBorSX5ASYxi18F3wO7H+IK0G2i5TqHCwQ/XOZGXzx3dne9a9AhA=="

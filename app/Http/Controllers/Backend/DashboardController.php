@@ -8,13 +8,16 @@ use App\Models\Affiliate;
 use App\Models\Merchant;
 use App\Models\Order;
 use App\Models\User;
-use PDF;
 use App\Traits\ImageUploadAble;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use PDF;
+use Throwable;
 
 class DashboardController extends Controller
 {
     use ImageUploadAble;
+
     /**
      * Handle the incoming request.
      *
@@ -56,21 +59,21 @@ class DashboardController extends Controller
         $retailOrders = Order::where('type', 'retail')->orderBy('id', 'desc')->paginate(10);
         $wholesaleOrders = Order::where('type', 'wholesale')->orderBy('id', 'desc')->paginate(10);
         return view('backend.dashboard.order', compact(
-            'retailOrders','wholesaleOrders'
+            'retailOrders', 'wholesaleOrders'
 
         ));
     }
 
     public function paymentRequest()
     {
-        $paymentRequest= \App\Models\PaymentRequest::orderBy('id','desc')->get();
-        return view('backend.dashboard.payment_request',compact('paymentRequest'));
+        $paymentRequest = \App\Models\PaymentRequest::orderBy('id', 'desc')->get();
+        return view('backend.dashboard.payment_request', compact('paymentRequest'));
     }
 
     public function generateInvoice($id)
     {
-        $order=Order::find($id);
-        $pdf=PDF::loadView('backend.dashboard.invoice',compact('order'));
+        $order = Order::find($id);
+        $pdf = PDF::loadView('backend.dashboard.invoice', compact('order'));
         return $pdf->stream('invoice.pdf');
     }
 
@@ -87,7 +90,6 @@ class DashboardController extends Controller
             'phone' => 'required|regex:/^(?:\+?88)?01[13-9]\d{8}$/',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg',
         ]);
-
         try {
             $user = User::find(auth()->user()->id);
             $data = [
