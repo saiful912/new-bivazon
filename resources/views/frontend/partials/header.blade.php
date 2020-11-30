@@ -47,7 +47,7 @@
                             </a>
                             <ul class="dropdown-menu drp-mnu">
                                 <li>
-                                    <form action="{!! route('track') !!}" method="get">
+                                    <form action="{{route('track')}}" method="get">
 
                                         <input type="text" class="form-control" name="track" placeholder="Enter Your Order Number" required="">
                                         <button type="submit" class="btn btn-success" style="width: 100%">Search</button>
