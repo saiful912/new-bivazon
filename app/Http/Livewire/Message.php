@@ -35,8 +35,7 @@ class Message extends Component
         $selectUser = $this->selectedUser;
         $messages = \App\Models\Message::where(static function (Builder $query) use ($selectUser) {
             $query->where('from_id', '=', auth()->user()->id);
-            $query->where('to_id', '=', $selectUser->id);
-
+            $query->where('to_id', '=', $selectUser->id); 
         })->orWhere(function (Builder $query) use ($selectUser) {
             $query->where('from_id', '=', $selectUser->id);
             $query->where('to_id', '=', auth()->user()->id);
