@@ -25,7 +25,6 @@
     <main class="main-box">
         <div class="container">
             <header>Shop Registration</header>
-            @include('backend.partials._message')
             <div class="progress-bar">
                 <div class="step">
                     <p style="font-size: medium">Shop Type</p>
@@ -193,7 +192,7 @@
         progressText[current - 2].classList.remove("active");
         current -= 1;
     });
-    prevBtnThird.addEventListener("click", function(){
+    prevBtnThird.addEventListener("click", function () {
         slidePage.style.marginLeft = "-25%";
         bullet[current - 2].classList.remove("active");
         progressCheck[current - 2].classList.remove("active");

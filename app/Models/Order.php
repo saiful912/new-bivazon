@@ -36,6 +36,10 @@ class Order extends Model
         }
         $number = $number + 1;
         return sprintf("INV_%09d", $number);
+    }
 
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
     }
 }

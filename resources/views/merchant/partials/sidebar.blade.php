@@ -13,7 +13,7 @@
             <!-- Sidebar Menu -->
             <nav>
                 <h4 class="text-center bg-gray" style="padding: 5px 0;color: #353131;">
-                    {{auth()->user()->merchant->category->name}}
+                    {{auth()->user()->category->name}}
                 </h4>
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="active"><a href="{{route('merchant.dashboard')}}"><i

@@ -8,8 +8,8 @@ use App\Models\Category;
 use App\Models\Merchant;
 use App\Models\User;
 use App\Traits\ImageUploadAble;
+use DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Throwable;
 
@@ -33,14 +33,13 @@ class MerchantRegisterController extends Controller
             'full_name' => 'required|min:3|max:18',
             'phone' => 'required|regex:/^(?:\+?88)?01[13-9]\d{8}$/|unique:users,phone',
             'password' => 'required|min:8|alpha_num|confirmed',
-            'image' => 'sometimes|required|image|mimes:jpeg,png,jpg',
+            'image' => 'required|image|mimes:jpeg,png,jpg',
         ]);
         DB::beginTransaction();
         try {
             $merchant = Merchant::create([
                 'shop_name' => $request->input('shop_name'),
                 'shop_type' => $request->input('type'),
-                'category_id' => $request->input('category_id'),
             ]);
             $file_name = $this->upload($request->file('image'), 'shop/profile');
             User::create([
@@ -54,11 +53,11 @@ class MerchantRegisterController extends Controller
             ]);
             DB::commit();
 //            session()->flash('success','You Have Successfully Registration. The admin will give you access very soon');
-            return redirect(route('shop.register.message'));
+            return redirect()->route('shop.register.message');
         } catch (Throwable $exception) {
             DB::rollBack();
             session()->flash('errors', 'Something was wrong !! Please Try Again..');
-            return back();
+            return redirect()->back()->withErrors();
         }
     }
 
@@ -89,8 +88,8 @@ class MerchantRegisterController extends Controller
         ];
 
         if (auth()->attempt($credentials)) {
+            dd(auth()->user());
             return redirect()->route('merchant.dashboard');
-
         }
         notify()->error('Invalid credentials');
         return redirect()->back()->withInput();

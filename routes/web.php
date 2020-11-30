@@ -158,7 +158,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('shop/login', [MerchantRegisterController::class, 'shopLogin'])->name('shop.login.process');
 });
 
-Route::group(['namespace' => 'Merchant', 'prefix' => 'merchant'], function () {
+Route::group(['namespace' => 'Merchant', 'prefix' => 'merchant', 'middleware' => 'merchant'], function () {
     Route::get('logout', function () {
         Auth::logout();
         return redirect()->route('shop.login');

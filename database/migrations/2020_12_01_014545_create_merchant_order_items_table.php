@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGalleriesTable extends Migration
+class CreateMerchantOrderItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class CreateGalleriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('galleries', function (Blueprint $table) {
+        Schema::create('merchant_order_items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('merchant_order_id')->constrained();
+            $table->decimal('price', 11, 2);
+            $table->decimal('unit_discount', 11, 2)->nullable();
+            $table->foreignId('product_id')->constrained();
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ class CreateGalleriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('galleries');
+        Schema::dropIfExists('merchant_order_items');
     }
 }
